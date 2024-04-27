@@ -1,11 +1,4 @@
 import mongoose from "mongoose";
-import { UserSchema } from "./UserSchema.js";
-
-const RegisteredUserSchema = mongoose.Schema({
-  name: String,
-  email: String,
-  phone: Number,
-});
 
 const EventSchema = new mongoose.Schema({
   createdBy: {
@@ -33,7 +26,6 @@ const EventSchema = new mongoose.Schema({
     required: false,
     type: String,
   },
-  registered_users: [RegisteredUserSchema],
 });
 
 const EventModel = mongoose.model("Event", EventSchema);
