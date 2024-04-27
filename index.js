@@ -15,6 +15,12 @@ app.use(express.json());
 app.use("/user", UserRouter);
 app.use("/event", EventRouter);
 
+app.get("/", (req, res) => {
+  const authHeader = req.headers["authorization"];
+  console.log(authHeader && authHeader.split(" ")[1]);
+  res.send("hello");
+});
+
 app.listen(PORT, () => {
   console.log(`Server Started at http://localhost:${PORT}`);
 });

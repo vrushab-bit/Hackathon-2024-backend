@@ -8,7 +8,11 @@ const RegisteredUserSchema = mongoose.Schema({
 });
 
 const EventSchema = new mongoose.Schema({
-  createdBy: UserSchema,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Reference the User model
+    required: true,
+  },
   name: {
     required: true,
     type: String,
@@ -21,17 +25,13 @@ const EventSchema = new mongoose.Schema({
     required: true,
     type: Date,
   },
-  time: {
+  duration: {
     required: true,
-    type: Date,
+    type: String,
   },
   desription: {
     required: false,
     type: String,
-  },
-  time: {
-    required: true,
-    type: Date,
   },
   registered_users: [RegisteredUserSchema],
 });
