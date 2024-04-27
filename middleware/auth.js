@@ -12,7 +12,6 @@ export const checkJWT = async (req, res, next) => {
 
       try {
         const user_id = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(user_id);
         if (!user_id) return res.sendStatus(401);
 
         // Assign the extracted user_id to the request object

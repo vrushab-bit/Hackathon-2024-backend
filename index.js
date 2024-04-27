@@ -12,14 +12,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/user", UserRouter);
-app.use("/event", EventRouter);
-
-app.get("/", (req, res) => {
-  const authHeader = req.headers["authorization"];
-  console.log(authHeader && authHeader.split(" ")[1]);
-  res.send("hello");
-});
+app.use("/api/user", UserRouter);
+app.use("/api/event", EventRouter);
 
 app.listen(PORT, () => {
   console.log(`Server Started at http://localhost:${PORT}`);
