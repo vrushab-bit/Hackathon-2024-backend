@@ -6,15 +6,11 @@ const EventSchema = new mongoose.Schema({
     ref: "User", // Reference the User model
     required: true,
   },
-  name: {
+  title: {
     required: true,
     type: String,
   },
-  dateFrom: {
-    required: true,
-    type: Date,
-  },
-  dateTo: {
+  date: {
     required: true,
     type: Date,
   },
@@ -22,8 +18,8 @@ const EventSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  desription: {
-    required: false,
+  description: {
+    required: true,
     type: String,
   },
 });

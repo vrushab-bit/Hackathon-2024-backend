@@ -2,19 +2,17 @@ import { EventModel } from "../../models/EventSchema.js";
 
 const createEvent = async (req, res) => {
   try {
-    const { name, dateFrom, dateTo, duration, description = "" } = req.body;
+    const { title, date, duration, description } = req.body;
     const userId = req.userId;
-    const from = new Date(dateFrom);
-    const to = new Date(dateTo);
-    if ((userId, !name || !dateFrom || !dateTo || !duration)) {
+    const newDate = new Date(date);
+    if (!userId || !title || !date || !duration || !description) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
     const newEvent = new EventModel({
       createdBy: userId,
-      name,
-      dateFrom: from,
-      dateTo: to,
+      title,
+      date: newDate,
       duration,
       description,
     });
@@ -43,9 +41,6 @@ const getEventsByUserId = async (req, res) => {
 
 const getEventById = async (req, res) => {
   try {
-    if (req.userId != req.params.id) {
-      return res.status(403).json({ message: "Event Doesnt Belong To you" });
-    }
     const event = await EventModel.findById(req.params.id);
     if (!event) {
       return res.status(404).json({ message: "Event not found" }); // Not Found
@@ -59,9 +54,6 @@ const getEventById = async (req, res) => {
 
 const updateEventById = async (req, res) => {
   try {
-    if (req.userId != req.params.id) {
-      return res.status(403).json({ message: "Event Doesnt Belong To you" });
-    }
     const updates = req.body;
 
     // Optionally validate updates (e.g., dateFrom < dateTo)
@@ -84,9 +76,6 @@ const updateEventById = async (req, res) => {
 
 const deleteEventById = async (req, res) => {
   try {
-    if (req.userId != req.params.id) {
-      return res.status(200).json({ message: "Event Doesnt Belong To you" });
-    }
     const deletedEvent = await EventModel.findByIdAndDelete(req.params.id);
     if (!deletedEvent) {
       return res.status(404).json({ message: "Event not found" }); // Not Found
